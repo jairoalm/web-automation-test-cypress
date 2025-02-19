@@ -87,7 +87,55 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.fillMandatoryFieldsAndSubmit()    
     cy.get('.success').should('be.visible')
   })
-  it.only('exemplo do uso do contains', () => {
+  it('exemplo do uso do contains', () => {
     cy.contains('button', 'Enviar').click()
+  })
+  it('seleciona um produto (YouTube) por seu texto', () => {
+    cy.get('#product').select('YouTube')
+      .should('have.value', 'youtube')
+  })
+  it('seleciona um produto (Mentoria) por seu texto', () => {
+    cy.get('#product').select('Mentoria')
+      .should('have.value', 'mentoria')
+  })
+  it('seleciona um produto (Blog) por seu texto', () => {
+    cy.get('#product').select('Blog')
+      .should('have.value', 'blog')
+  })
+  it('seleciona um produto (Cursos) por seu texto', () => {
+    cy.get('#product').select('Cursos')
+      .should('have.value', 'cursos')
+  })
+  it('seleciona um produto (YouTube) por seu value', () => {
+    cy.get('#product').select('youtube')
+      .should('have.value', 'youtube')
+  })
+  it('seleciona um produto (Mentoria) por seu value', () => {
+    cy.get('#product').select('mentoria')
+      .should('have.value', 'mentoria')
+  })
+  it('seleciona um produto (Blog) por seu value', () => {
+    cy.get('#product').select('blog')
+      .should('have.value', 'blog')
+  })
+  it('seleciona um produto (Cursos) por seu value', () => {
+    cy.get('#product').select('cursos')
+      .should('have.value', 'cursos')
+  })
+  it('seleciona um produto (YouTube) por seu indice', () => {
+    cy.get('#product').select(4)
+      .should('have.value', 'youtube')
+  })
+  it('seleciona um produto (Mentoria) por seu indice', () => {
+    cy.get('#product').select(3)
+      .should('have.value', 'mentoria')
+  })
+  it('seleciona um produto (Blog) por seu indice', () => {
+    cy.get('#product').select(1)
+      .should('have.value', 'blog')
+  })
+  it('seleciona um produto (Cursos) por seu indice', () => {
+    cy.get('#product').select(2)
+      .should('have.value', 'cursos')
   })
 })
