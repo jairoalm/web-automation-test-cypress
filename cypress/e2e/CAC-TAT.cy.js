@@ -138,4 +138,31 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('#product').select(2)
       .should('have.value', 'cursos')
   })
+
+  it('marca o tipo de atendimento "Feedback', () => {
+    cy.get('input[type="radio"][value="feedback"]')
+      .check()
+      .should('be.checked')
+  })
+  it('marca o tipo de atendimento "Elogio', () => {
+    cy.get('input[type="radio"][value="elogio"]')
+      .check()
+      .should('be.checked')
+  })
+  it('marca o tipo de atendimento "Ajuda', () => {
+    cy.get('input[type="radio"][value="ajuda"]')
+      .check()
+      .should('be.checked')
+  })
+  // marca o radio um por um e valida
+  // each recebe cada posição do array
+  // wrap empacota os elementos para utilizar os comandos do cypress
+  it.only('marca o tipo de atendimento com "each', () => {
+    cy.get('input[type="radio"]')
+      .each((typeOfService) => {
+        cy.wrap(typeOfService)        
+          .check()
+          .should('be.checked')
+      })      
+  })
 })
