@@ -34,7 +34,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
       .should('have.value', '')
   })
 
-  it.only('exibe mensagem de erro quando telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
+  it('exibe mensagem de erro quando telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
     cy.get('#firstName').type('João')
     cy.get('#lastName').type('Monteiro')
     cy.get('#email').type('teste@gmail.com')
@@ -165,7 +165,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
           .should('be.checked')
       })      
   })
-  it.only('marca ambos checkboxes, depois desmarca o último', () => {
+  it('marca ambos checkboxes, depois desmarca o último', () => {
     cy.get('input[type="checkbox"]')
       .check()
       .should('be.checked')
