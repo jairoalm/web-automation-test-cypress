@@ -1,0 +1,13 @@
+name: End-to-end tests
+# vai acontecer sempre que houver um git push
+on: push
+jobs:
+  cypress-run:
+    runs-on: uubuntu-22.04
+    steps:
+        # baixa o projeto no workspace no github
+      - name: Checkout
+        uses: actions/checkout@v4
+        # executa os testes com cypress
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
