@@ -19,6 +19,12 @@ Run `npm run cy:run:mobile` para executar os testes em headless mobile viewport.
 
 Or, run `npm run cy:open:mobile` para executar os testes Cypress App on a mobile viewport.
 
+## Aprendizado
+
+Github Actions
+Cypress Cloud
+
+
 # Apoie esse projeto
 Se você quiser apoiar este projeto, deixe um ⭐.
 
