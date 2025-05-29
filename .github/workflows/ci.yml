@@ -23,23 +23,13 @@ jobs:
           allure_report: allure-report
           allure_history: allure-history
           keep_reports: 20
-
-      - name: Debug: List contents of allure-history
-        run: |
-          echo "Listing contents of allure-history:"
-          ls -F allure-history/ # Lista apenas o nível raiz
-          echo ""
-          echo "Listing ALL contents of allure-history (recursive):"
-          ls -RF allure-history/ # Lista recursivamente
-        if: always()
-        
       - name: Deploy report to Github Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history 
+          PUBLISH_DIR: allure-history/last-history 
           force_orphan: true
         # env:
         #   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}          
