@@ -1,5 +1,48 @@
+# name: End-to-end tests
+# on: push
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-22.04
+#     permissions:
+#       contents: write
+#       pages: write
+#       id-token: write
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#       - name: Cypress run
+#         uses: cypress-io/github-action@v6
+#         with:
+#           command: npm run test:headless
+#       - name: Allure Report with history
+#         uses: simple-elf/allure-report-action@v1.12
+#         if: always()
+#         with:
+#           allure_results: allure-results 
+#           gh_pages: gh-pages           
+#           allure_report: allure-report
+#           allure_history: allure-history
+#           keep_reports: 20
+#       - name: Deploy report to Github Pages
+#         if: always()
+#         uses: peaceiris/actions-gh-pages@v3
+#         with:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           PUBLISH_BRANCH: gh-pages
+#           PUBLISH_DIR: allure-report 
+#           force_orphan: true
+        # env:
+        #   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}          
+        # with:
+        #   command: npm run test:cloud
+
 name: End-to-end tests
-on: push
+
+on:
+  push:
+    branches:
+      - master  # ou master, se for o caso
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
@@ -7,31 +50,32 @@ jobs:
       contents: write
       pages: write
       id-token: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cypress run
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
           command: npm run test:headless
-      - name: Allure Report with history
+
+      - name: Generate Allure Report
         uses: simple-elf/allure-report-action@v1.12
         if: always()
         with:
-          allure_results: allure-results 
-          gh_pages: gh-pages           
+          allure_results: allure-results
           allure_report: allure-report
-          allure_history: allure-history
           keep_reports: 20
-      - name: Deploy report to Github Pages
+
+      - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-report 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
           force_orphan: true
-        # env:
-        #   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}          
-        # with:
-        #   command: npm run test:cloud
