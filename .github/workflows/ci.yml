@@ -8,7 +8,30 @@ jobs:
         uses: actions/checkout@v4
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        - name: Allure Report with history
+        # Esta ação gera o relatório HTML do Allure e gerencia o histórico.
+        # Certifique-se de que 'allure_results' aponte para onde seus testes geraram os resultados.
+        # Se você configurou 'resultsDir: "allure-results"' no cypress.config.js,
+        # então mude 'allure_results: build/allure-results' para 'allure_results: allure-results'.
+        # Se seus resultados estão em 'build/allure-results', mantenha como está.
+        uses: simple-elf/allure-report-action@v1.12
+        if: always() # Garante que esta etapa sempre seja executada, mesmo se os testes falharem
+        with:
+          allure_results: allure-results # Caminho para a pasta com os resultados brutos do Allure
+          gh_pages: gh-pages           # Branch para onde o relatório será publicado
+          allure_report: allure-report   # Pasta onde o relatório HTML será gerado
+          allure_history: allure-history # Pasta para o histórico do relatório
+          keep_reports: 20             # Quantidade de relatórios históricos a serem mantidos
+
+      - name: Deploy report to Github Pages
+        # Esta ação publica o conteúdo da pasta 'allure-history' (que contém o relatório e o histórico)
+        # para a branch 'gh-pages' do seu repositório.
+        # Certifique-se de que a branch 'gh-pages' esteja configurada para servir o site nas configurações do seu repositório.
+        if: always() # Garante que esta etapa sempre seja executada
+        uses: peaceiris/actions-gh-pages@v3 # Usar a versão mais recente (v3 ou superior)
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          PUBLISH_BRANCH: gh-pages # A branch para onde o relatório será publicado
+          PUBLISH_DIR: allure-history 
         with:
           command: npm run test:cloud
